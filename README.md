@@ -1,6 +1,6 @@
 **Qt - Bitcoin/Dogecoin API interaction**
 
-Simple use of the of Dogecoin core API from Qt without any dependencies
+Simple use of the Dogecoin core API from Qt without any dependencies
 
 **Example usage**
 
