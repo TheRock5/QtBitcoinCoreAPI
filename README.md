@@ -12,8 +12,8 @@ Simple use of the Dogecoin core API from Qt without any dependencies
 
 **Functions**
 
-void getbalance( const QString username = {} );
-bool sendfrom( const QString username, const QString walletAddress, const qint32 amount );
+    void getbalance( const QString username = {} ); // gets the user balance or the wallet balance of all users
+    bool sendfrom( const QString username, const QString walletAddress, const qint32 amount ); // Send from user to address amount XYZ. For Bitcoin it's recommended to use a double instead of qint32.
 
 More functions can be easily integrated. 
 
