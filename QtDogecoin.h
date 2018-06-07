@@ -69,13 +69,11 @@ public:
             makeRequest("getbalance", QJsonArray() << username);
     }
 
-    bool getnewadress( const QString account ) {
-        if(account.isNull() || account.isEmpty() || account.length() < 10)
-            return false;
+     void getnewaddress( const QString account = { }) {
+        if(account.isNull() || account.isEmpty())
+            makeRequest ( "getnewaddress" );
         else
             makeRequest( "getnewaddress", QJsonArray() << account );
-
-        return true;
     }
 
     bool gettransaction ( const QString account = {} ) {
