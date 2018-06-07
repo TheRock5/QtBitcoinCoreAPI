@@ -1,4 +1,4 @@
-/* 
+/*
  * MIT License
  *
  * Copyright (c) 2018 TheRock
@@ -19,7 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
@@ -45,7 +44,7 @@ public:
     {
         m_WebRequest.setRawHeader("Content-Type", "text/plain");
         m_WebRequest.setUrl(QUrl(QString("http://127.0.0.1:22555")));
-        m_WebRequest.setRawHeader("Authorization", "Basic " + QString("%1:%2").arg(rpcUser).arg(rpcPassword).toLocal8Bit().toBase64());
+        m_WebRequest.setRawHeader("Authorization", "Basic " + QString("%1:%2").arg(mRpcUser).arg(mRpcPassword).toLocal8Bit().toBase64());
 
         connect(&m_WebCtrl, &QNetworkAccessManager::finished, [](QNetworkReply *reply) {
             QByteArray ret = reply->readAll();
@@ -68,6 +67,24 @@ public:
             makeRequest("getbalance");
         else
             makeRequest("getbalance", QJsonArray() << username);
+    }
+
+    bool getnewadress( const QString account ) {
+        if(account.isNull() || account.isEmpty() || account.length() < 10)
+            return false;
+        else
+            makeRequest( "getnewaddress", QJsonArray() << account );
+
+        return true;
+    }
+
+    bool gettransaction ( const QString account = {} ) {
+        if(account.length() != 64)
+            return false;
+        else
+            makeRequest( "gettransaction", QJsonArray() << account );
+
+        return true;
     }
 
     bool sendfrom( const QString username, const QString walletAddress, const qint32 amount
@@ -107,6 +124,5 @@ private:
         HTTP_UNAUTHORIZED = 401
     };
 };
-
 
 #endif // MAIN_H
